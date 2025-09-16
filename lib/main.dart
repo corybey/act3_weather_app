@@ -6,6 +6,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,6 +19,8 @@ class MyApp extends StatelessWidget {
 }
 
 class WeatherHomePage extends StatefulWidget {
+  const WeatherHomePage({super.key});
+
   @override
   _WeatherHomePageState createState() => _WeatherHomePageState();
 }
@@ -99,6 +103,53 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ],
+                  ),
+                ),
+              ),
+            SizedBox(height: 20),
+            //7 Day Forecast
+            if (city.isNotEmpty)
+              Expanded(
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "7-Day Forecast",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: 7,
+                            itemBuilder: (context, index) {
+                              final dayTemp = "${15 + Random().nextInt(16)}°C";
+                              final dayCondition = [
+                                "Sunny",
+                                "Cloudy",
+                                "Rainy",
+                              ][Random().nextInt(3)];
+                              return ListTile(
+                                leading: Icon(Icons.wb_sunny),
+                                title: Text("Day ${index + 1}"),
+                                subtitle: Text(
+                                  "Temp: $dayTemp, Condition: $dayCondition",
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
